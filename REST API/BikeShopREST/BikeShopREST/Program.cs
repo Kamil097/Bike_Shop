@@ -21,6 +21,7 @@ builder.Services.AddScoped<IUserRepository,UserRepository>();
 builder.Services.AddScoped<IReviewRepository,ReviewRepository>();
 builder.Services.AddScoped<IContactRepository,ContactRepository>();
 builder.Services.AddScoped<IBikeCategoryRepository,BikeCategoryRepository>();
+builder.Services.AddScoped<IAuthRepository,AuthRepository>();
 builder.Services.AddDbContext<DataContext>(options=>
 {
 	options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));

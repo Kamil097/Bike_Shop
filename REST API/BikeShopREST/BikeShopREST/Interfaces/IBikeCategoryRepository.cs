@@ -6,6 +6,7 @@ namespace BikeShopREST.Interfaces
 	{
 		ICollection<Bike> GetBikesByCategory(int categoryId);
 		Category GetCategoryByBike(int bikeId);
+		bool AssignBikeToCategory(int categoryId, int bikeId);
 		bool Save();
 	}
 }

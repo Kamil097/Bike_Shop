@@ -25,11 +25,15 @@ namespace BikeShopREST.Repositories
 		{
 			return _context.Bikes.Where(b => b.Id == id).FirstOrDefault();
 		}
-
+		public bool CreateBike(Bike Bike)
+		{
+			_context.Add(Bike);
+			return Save();
+		}
 		public bool Save()
 		{
 			var saved = _context.SaveChanges();
 			return saved > 0 ? true : false;
-		}
+		}		
 	}
 }

@@ -58,5 +58,25 @@ namespace BikeShopREST.Controllers
 			return Ok(contact);
 		}
 
+		[HttpPost]
+		[ProducesResponseType(204)]
+		[ProducesResponseType(400)]
+		public IActionResult CreateContact([FromBody] ContactDto contactCreate)
+		{
+			if (contactCreate == null)
+				return BadRequest(ModelState);
+
+			if (!ModelState.IsValid)
+				return BadRequest(ModelState);
+
+			var contactMap = _mapper.Map<Contact>(contactCreate);
+			if (!_contactRepository.CreateContact(contactMap))
+			{
+				ModelState.AddModelError("", "Something went wrong saving contact.");
+				return StatusCode(500, ModelState);
+			}
+			return Ok(contactMap.Id);
+		}
+
 	}
 }

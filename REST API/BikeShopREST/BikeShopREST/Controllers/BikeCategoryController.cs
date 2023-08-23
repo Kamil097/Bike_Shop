@@ -46,5 +46,31 @@ namespace BikeShopREST.Controllers
 				return BadRequest(ModelState);
 			return Ok(category);
 		}
+		[HttpPost]
+		[ProducesResponseType(204)]
+		[ProducesResponseType(400)]
+		public IActionResult CreateBikeCategory([FromQuery] int bikeId, [FromQuery] int categoryId)
+		{
+			var category = _bikeCategoryRepository.GetBikesByCategory(categoryId)
+				.Where(b => b.Id == bikeId)
+				.FirstOrDefault();
+
+			if (category != null)
+			{
+				ModelState.AddModelError("", $"Bike already has a category");
+				return StatusCode(422, ModelState);
+			}
+			if (!ModelState.IsValid)
+				return BadRequest(ModelState);
+
+
+			if (!_bikeCategoryRepository.AssignBikeToCategory(categoryId, bikeId))
+			{
+				ModelState.AddModelError("", "Something went wrong while saving.");
+				return StatusCode(500, ModelState);
+			}
+			return Ok("Successfully added.");
+
+		}
 	}
 }

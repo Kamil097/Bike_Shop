@@ -4,7 +4,6 @@ namespace BikeShopREST.Interfaces
 {
 	public interface IAuthRepository
 	{
-		Auth Register();
-		Auth Login();
+		bool Register(Auth Auth);
 	}
 }

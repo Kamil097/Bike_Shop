@@ -7,6 +7,6 @@
 		public string City { get; set; }
 		public string Street { get; set; }
         public string PostCode { get; set; }
-        public User User { get; set; }
+		public ICollection<User> User { get; set; }
     }
 }

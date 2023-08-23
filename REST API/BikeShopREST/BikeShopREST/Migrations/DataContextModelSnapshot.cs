@@ -24,7 +24,10 @@ namespace BikeShopREST.Migrations
             modelBuilder.Entity("BikeShopREST.Models.Address", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("City")
                         .IsRequired()
@@ -50,17 +53,26 @@ namespace BikeShopREST.Migrations
             modelBuilder.Entity("BikeShopREST.Models.Auth", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("Auths");
                 });
@@ -145,7 +157,10 @@ namespace BikeShopREST.Migrations
             modelBuilder.Entity("BikeShopREST.Models.Contact", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -201,6 +216,12 @@ namespace BikeShopREST.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("AddressId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ContactId")
+                        .HasColumnType("int");
+
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -211,25 +232,18 @@ namespace BikeShopREST.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AddressId");
+
+                    b.HasIndex("ContactId");
+
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("BikeShopREST.Models.Address", b =>
-                {
-                    b.HasOne("BikeShopREST.Models.User", "User")
-                        .WithOne("Address")
-                        .HasForeignKey("BikeShopREST.Models.Address", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("BikeShopREST.Models.Auth", b =>
                 {
                     b.HasOne("BikeShopREST.Models.User", "User")
                         .WithOne("Auth")
-                        .HasForeignKey("BikeShopREST.Models.Auth", "Id")
+                        .HasForeignKey("BikeShopREST.Models.Auth", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -274,17 +288,6 @@ namespace BikeShopREST.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("BikeShopREST.Models.Contact", b =>
-                {
-                    b.HasOne("BikeShopREST.Models.User", "User")
-                        .WithOne("Contact")
-                        .HasForeignKey("BikeShopREST.Models.Contact", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("BikeShopREST.Models.Review", b =>
                 {
                     b.HasOne("BikeShopREST.Models.Bike", "Bike")
@@ -304,6 +307,30 @@ namespace BikeShopREST.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("BikeShopREST.Models.User", b =>
+                {
+                    b.HasOne("BikeShopREST.Models.Address", "Address")
+                        .WithMany("User")
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BikeShopREST.Models.Contact", "Contact")
+                        .WithMany("User")
+                        .HasForeignKey("ContactId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Address");
+
+                    b.Navigation("Contact");
+                });
+
+            modelBuilder.Entity("BikeShopREST.Models.Address", b =>
+                {
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("BikeShopREST.Models.Bike", b =>
                 {
                     b.Navigation("BikeCategories");
@@ -318,18 +345,17 @@ namespace BikeShopREST.Migrations
                     b.Navigation("BikeCategories");
                 });
 
+            modelBuilder.Entity("BikeShopREST.Models.Contact", b =>
+                {
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("BikeShopREST.Models.User", b =>
                 {
-                    b.Navigation("Address")
-                        .IsRequired();
-
                     b.Navigation("Auth")
                         .IsRequired();
 
                     b.Navigation("BikeUsers");
-
-                    b.Navigation("Contact")
-                        .IsRequired();
 
                     b.Navigation("Reviews");
                 });

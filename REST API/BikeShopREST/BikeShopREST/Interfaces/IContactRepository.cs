@@ -7,6 +7,7 @@ namespace BikeShopREST.Interfaces
 		IEnumerable<Contact> GetContacts();
 		Contact GetContact(int id);
 		Contact GetContactByUser(int userId);
+		bool CreateContact(Contact contact);
 		bool ContactExists(int id);
 		bool Save();
 	}

@@ -47,26 +47,16 @@ namespace BikeShopREST.Data
 				.HasOne(p => p.User)
 				.WithMany(pc => pc.BikeUsers)
 				.HasForeignKey(c => c.UserId);
-
+			//-----------------------------
 			modelBuilder.Entity<User>()
-				.HasOne(u => u.Address) 
+				.HasOne(u => u.Auth) 
 				.WithOne(a => a.User)   
-				.HasForeignKey<Address>(a => a.Id); 
-
-			modelBuilder.Entity<Address>()
-				.HasOne(a => a.User)
-				.WithOne(u => u.Address)
-				.HasForeignKey<Address>(a => a.Id); // Use User.Id as the foreign key
+				.HasForeignKey<Auth>(a => a.UserId);
 
 			modelBuilder.Entity<Auth>()
 				.HasOne(a => a.User)
 				.WithOne(u => u.Auth)
-				.HasForeignKey<Auth>(a => a.Id);
-
-			modelBuilder.Entity<Contact>()
-				.HasOne(a => a.User)
-				.WithOne(u => u.Contact)
-				.HasForeignKey<Contact>(a => a.Id);
+				.HasForeignKey<Auth>(a => a.UserId);
 
 		}
 	}

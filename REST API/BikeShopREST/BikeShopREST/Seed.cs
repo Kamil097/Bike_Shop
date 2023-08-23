@@ -20,7 +20,7 @@ namespace BikeShopREST
 					{
 						FirstName = "John",
 						LastName = "Doe",
-						Contact = new Contact { PhoneNo = 123456789, Email = "john@example.com" },
+						Contact = new Contact { PhoneNo = 123456789, Email = "john@example.com"},
 						Address = new Address { Country = "USA", City = "New York", Street = "123 Main St", PostCode = "10001" },
 						Auth = new Auth { Username = "johndoe", PasswordHash = "hashedpassword" }
 					},

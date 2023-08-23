@@ -6,7 +6,9 @@ namespace BikeShopREST.Interfaces
 	{
 		ICollection<Review> GetReviews();
 		ICollection<Review> GetReviewsByBike(int bikeId);
+		ICollection<Review> GetReviewsByUser(int userId);
 		Review GetReview(int id);
+		bool CreateReview(Review review);
 		bool ReviewExists(int id);
 		bool Save();
 

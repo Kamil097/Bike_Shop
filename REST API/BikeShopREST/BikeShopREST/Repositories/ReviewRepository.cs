@@ -11,7 +11,14 @@ namespace BikeShopREST.Repositories
         {
 			_context = context;
         }
-        public Review GetReview(int id)
+
+		public bool CreateReview(Review review)
+		{
+			_context.Add(review);
+			return Save();
+		}
+
+		public Review GetReview(int id)
 		{
 			return _context.Reviews.Where(r => r.Id == id).FirstOrDefault();
 		}
@@ -24,6 +31,11 @@ namespace BikeShopREST.Repositories
 		public ICollection<Review> GetReviewsByBike(int bikeId)
 		{
 			return _context.Reviews.Where(r => r.Bike.Id == bikeId).ToList();
+		}
+
+		public ICollection<Review> GetReviewsByUser(int userId)
+		{
+			return _context.Reviews.Where(r=>r.User.Id == userId).ToList();
 		}
 
 		public bool ReviewExists(int id)

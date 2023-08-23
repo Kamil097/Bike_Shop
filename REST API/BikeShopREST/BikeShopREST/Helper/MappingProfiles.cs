@@ -25,6 +25,9 @@ namespace BikeShopREST.Helper
 
 			CreateMap<Contact, ContactDto>();
 			CreateMap<ContactDto, Contact>();
+
+			CreateMap<Auth, AuthDto>();
+			CreateMap<AuthDto,Auth>();
 		}      
 	}
 }

@@ -16,14 +16,20 @@ namespace BikeShopREST.Repositories
 			return _context.Contacts.Any(c=>c.Id == id);
 		}
 
+		public bool CreateContact(Contact contact)
+		{
+			_context.Add(contact);
+			return Save();
+		}
+
 		public Contact GetContact(int id)
 		{
 			return _context.Contacts.Where(c => c.Id == id).FirstOrDefault();
 		}
 
-		public Contact GetContactByUser(int userId)
+		public Contact GetContactByUser (int userId)
 		{
-			return _context.Contacts.Where(c => c.User.Id == userId).FirstOrDefault();
+			return _context.Users.Where(c => c.Id == userId).Select(c=>c.Contact).FirstOrDefault();
 		}
 
 		public IEnumerable<Contact> GetContacts()

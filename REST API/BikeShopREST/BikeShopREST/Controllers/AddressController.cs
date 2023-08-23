@@ -2,6 +2,7 @@
 using BikeShopREST.Dto;
 using BikeShopREST.Interfaces;
 using BikeShopREST.Models;
+using BikeShopREST.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BikeShopREST.Controllers
@@ -47,7 +48,7 @@ namespace BikeShopREST.Controllers
         {
             if (!_userRepository.UserExists(userId))
                 return NotFound();
-            var address =_mapper.Map<AddressDto>(_addressRepository.GetUserByAddress(userId));
+            var address =_mapper.Map<AddressDto>(_addressRepository.GetAddressByUser(userId));
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
             return Ok(address);
@@ -60,11 +61,29 @@ namespace BikeShopREST.Controllers
 			if (!_addressRepository.AddressExists(addressId))
 				return NotFound();
 
-			var user = _mapper.Map<UserDto>(_addressRepository.GetUserByAddress(addressId));
+			var user = _mapper.Map<List<UserDto>>(_addressRepository.GetUserByAddress(addressId));
 			if (!ModelState.IsValid)
 				return BadRequest(ModelState);
 			return Ok(user);
 		}
+		[HttpPost]
+		[ProducesResponseType(204)]
+		[ProducesResponseType(400)]
+		public IActionResult CreateAddress([FromBody] AddressDto addressCreate)
+		{
+			if (addressCreate == null)
+				return BadRequest(ModelState);
+			
+			if (!ModelState.IsValid)
+				return BadRequest(ModelState);
 
+			var addressMap = _mapper.Map<Address>(addressCreate);
+			if (!_addressRepository.CreateAddress(addressMap))
+			{
+				ModelState.AddModelError("", "Something went wrong saving address.");
+				return StatusCode(500, ModelState);
+			}
+			return Ok(addressMap.Id);
+		}
 	}
 }

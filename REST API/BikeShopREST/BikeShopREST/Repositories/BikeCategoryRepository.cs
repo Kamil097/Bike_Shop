@@ -11,7 +11,24 @@ namespace BikeShopREST.Repositories
         {
 			_context = context;
         }
-        public ICollection<Bike> GetBikesByCategory(int categoryId)
+
+		public bool AssignBikeToCategory(int categoryId, int bikeId)
+		{
+			var category = _context.Categories.Where(c => c.Id == categoryId).FirstOrDefault();
+			var bike = _context.Bikes.Where(b => b.Id == bikeId).FirstOrDefault();
+
+			var instance = new BikeCategory()
+			{
+				BikeId= bikeId,
+				CategoryId= categoryId,
+				Bike = bike,
+				Category = category
+			};
+			_context.Add(instance);
+			return Save();
+		}
+
+		public ICollection<Bike> GetBikesByCategory(int categoryId)
 		{
 			return _context.BikeCategories.Where(c => c.CategoryId == categoryId).Select(b => b.Bike).ToList();
 		}
@@ -24,7 +41,7 @@ namespace BikeShopREST.Repositories
 		public bool Save()
 		{
 			var save = _context.SaveChanges();
-			return save > 1 ? true : false;
+			return save > 0 ? true : false;
 		}
 	}
 }

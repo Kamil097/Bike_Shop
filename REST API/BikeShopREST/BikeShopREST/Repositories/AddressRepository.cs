@@ -16,6 +16,12 @@ namespace BikeShopREST.Repositories
 			return _context.Addresses.Any(a => a.Id == id);
 		}
 
+		public bool CreateAddress(Address address)
+		{
+			_context.Add(address);
+			return Save();
+		}
+
 		public Address GetAddress(int id)
 		{
 			return _context.Addresses.Where(a => a.Id == id).FirstOrDefault();
@@ -31,7 +37,7 @@ namespace BikeShopREST.Repositories
 			return _context.Addresses.OrderBy(a=>a.Id).ToList();
 		}
 
-		public User GetUserByAddress(int addressId)
+		public ICollection<User> GetUserByAddress(int addressId)
 		{
 			return _context.Addresses.Where(a => a.Id == addressId).Select(a => a.User).FirstOrDefault();
 		}

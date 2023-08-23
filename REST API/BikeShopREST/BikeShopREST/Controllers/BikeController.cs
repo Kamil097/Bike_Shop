@@ -2,6 +2,7 @@
 using BikeShopREST.Dto;
 using BikeShopREST.Interfaces;
 using BikeShopREST.Models;
+using BikeShopREST.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BikeShopREST.Controllers
@@ -39,5 +40,24 @@ namespace BikeShopREST.Controllers
                 return BadRequest(ModelState);
             return Ok(bike);
         }
-    }
+		[HttpPost]
+		[ProducesResponseType(204)]
+		[ProducesResponseType(400)]
+		public IActionResult CreateBike([FromBody] BikeDto bikeCreate)
+		{
+			if (bikeCreate == null)
+				return BadRequest(ModelState);
+
+			if (!ModelState.IsValid)
+				return BadRequest(ModelState);
+
+			var bikeMap = _mapper.Map<Bike>(bikeCreate);
+			if (!_bikeRepository.CreateBike(bikeMap))
+			{
+				ModelState.AddModelError("", "Something went wrong saving bike.");
+				return StatusCode(500, ModelState);
+			}
+			return Ok(bikeMap.Id);
+		}
+	}
 }
