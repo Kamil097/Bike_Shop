@@ -58,6 +58,17 @@ namespace BikeShopREST.Data
 				.WithOne(u => u.Auth)
 				.HasForeignKey<Auth>(a => a.UserId);
 
+			modelBuilder.Entity<User>()
+				.HasOne(u => u.Contact)
+				.WithOne(c => c.User)
+				.HasForeignKey<Contact>(c => c.UserId);
+
+			modelBuilder.Entity<Contact>()
+				.HasOne(c => c.User)
+				.WithOne(u => u.Contact)
+				.HasForeignKey<Contact>(c => c.UserId);
+			//-------------------------------
+
 		}
 	}
 }

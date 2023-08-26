@@ -70,6 +70,8 @@ namespace BikeShopREST.Controllers
 				return BadRequest(ModelState);
 
 			var contactMap = _mapper.Map<Contact>(contactCreate);
+			var user = _userRepository.GetUser(contactCreate.UserId);
+			contactMap.User = user;
 			if (!_contactRepository.CreateContact(contactMap))
 			{
 				ModelState.AddModelError("", "Something went wrong saving contact.");

@@ -169,7 +169,13 @@ namespace BikeShopREST.Migrations
                     b.Property<int>("PhoneNo")
                         .HasColumnType("int");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("Contacts");
                 });
@@ -219,9 +225,6 @@ namespace BikeShopREST.Migrations
                     b.Property<int>("AddressId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ContactId")
-                        .HasColumnType("int");
-
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -233,8 +236,6 @@ namespace BikeShopREST.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AddressId");
-
-                    b.HasIndex("ContactId");
 
                     b.ToTable("Users");
                 });
@@ -288,6 +289,17 @@ namespace BikeShopREST.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("BikeShopREST.Models.Contact", b =>
+                {
+                    b.HasOne("BikeShopREST.Models.User", "User")
+                        .WithOne("Contact")
+                        .HasForeignKey("BikeShopREST.Models.Contact", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("BikeShopREST.Models.Review", b =>
                 {
                     b.HasOne("BikeShopREST.Models.Bike", "Bike")
@@ -315,15 +327,7 @@ namespace BikeShopREST.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BikeShopREST.Models.Contact", "Contact")
-                        .WithMany("User")
-                        .HasForeignKey("ContactId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Address");
-
-                    b.Navigation("Contact");
                 });
 
             modelBuilder.Entity("BikeShopREST.Models.Address", b =>
@@ -345,17 +349,15 @@ namespace BikeShopREST.Migrations
                     b.Navigation("BikeCategories");
                 });
 
-            modelBuilder.Entity("BikeShopREST.Models.Contact", b =>
-                {
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("BikeShopREST.Models.User", b =>
                 {
                     b.Navigation("Auth")
                         .IsRequired();
 
                     b.Navigation("BikeUsers");
+
+                    b.Navigation("Contact")
+                        .IsRequired();
 
                     b.Navigation("Reviews");
                 });
