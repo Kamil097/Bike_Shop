@@ -91,5 +91,28 @@ namespace BikeShopREST.Controllers
 			}
 			return Ok(reviewMap.Id);
 		}
+		[HttpPut("update/{reviewId}")]
+		[ProducesResponseType(400)]
+		[ProducesResponseType(204)]
+		[ProducesResponseType(404)]
+		public IActionResult UpdateReview([FromBody] ReviewDto reviewUpdate, int reviewId)
+		{
+			if (reviewUpdate == null)
+				return BadRequest(ModelState);
+			if (!_reviewRepository.ReviewExists(reviewId))
+				return NotFound();
+			if (reviewUpdate.Id != reviewId)
+				return BadRequest(ModelState);
+			if (!ModelState.IsValid)
+				return BadRequest(ModelState);
+
+			var reviewMap = _mapper.Map<Review>(reviewUpdate);
+			if (!_reviewRepository.UpdateReview(reviewMap))
+			{
+				ModelState.AddModelError("", "Something went wrong updating review data.");
+				return StatusCode(500, ModelState);
+			}
+			return NoContent();
+		}
 	}
 }

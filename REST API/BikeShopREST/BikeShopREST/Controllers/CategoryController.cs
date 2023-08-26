@@ -3,6 +3,7 @@ using BikeShopREST.Data;
 using BikeShopREST.Dto;
 using BikeShopREST.Interfaces;
 using BikeShopREST.Models;
+using BikeShopREST.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BikeShopREST.Controllers
@@ -67,5 +68,28 @@ namespace BikeShopREST.Controllers
             }
             return Ok(categoryMap.Id);
         }
-    }
+		[HttpPut("update/{categoryId}")]
+		[ProducesResponseType(400)]
+		[ProducesResponseType(204)]
+		[ProducesResponseType(404)]
+		public IActionResult UpdateCategory([FromBody] CategoryDto categoryUpdate, int categoryId)
+		{
+			if (categoryUpdate == null)
+				return BadRequest(ModelState);
+			if (!_categoryRepository.CategoryExists(categoryId))
+				return NotFound();
+			if (categoryUpdate.Id != categoryId)
+				return BadRequest(ModelState);
+			if (!ModelState.IsValid)
+				return BadRequest(ModelState);
+
+			var categoryMap = _mapper.Map<Category>(categoryUpdate);
+			if (!_categoryRepository.UpdateCategory(categoryMap))
+			{
+				ModelState.AddModelError("", "Something went wrong updating category data.");
+				return StatusCode(500, ModelState);
+			}
+			return NoContent();
+		}
+	}
 }

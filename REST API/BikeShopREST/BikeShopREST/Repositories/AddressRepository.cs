@@ -41,7 +41,11 @@ namespace BikeShopREST.Repositories
 		{
 			return _context.Addresses.Where(a => a.Id == addressId).Select(a => a.User).FirstOrDefault();
 		}
-
+		public bool UpdateAddress(Address address)
+		{
+			_context.Update(address);
+			return Save();
+		}
 		public bool Save()
 		{
 			var saved = _context.SaveChanges();

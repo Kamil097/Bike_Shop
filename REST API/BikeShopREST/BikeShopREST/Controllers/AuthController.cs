@@ -22,10 +22,10 @@ namespace BikeShopREST.Controllers
 			_mapper = mapper;
         }
 
-		[HttpPost]
+		[HttpPost("update/{userId}")]
 		[ProducesResponseType(204)]
 		[ProducesResponseType(400)]
-		public IActionResult CreateAuth([FromBody] AuthDto authCreate)
+		public IActionResult CreateAuth([FromBody] AuthDto authCreate, int userId)
 		{
 			if (authCreate == null)
 				return BadRequest(ModelState);
@@ -34,7 +34,7 @@ namespace BikeShopREST.Controllers
 				return BadRequest(ModelState);
 
 			var authMap = _mapper.Map<Auth>(authCreate);
-			var user = _userRepository.GetUser(authCreate.UserId);
+			var user = _userRepository.GetUser(userId);
 			authMap.User = user;
 
 			if (!_authRepository.Register(authMap))
@@ -43,6 +43,30 @@ namespace BikeShopREST.Controllers
 				return StatusCode(500, ModelState);
 			}
 			return Ok(authMap.Id);
+		}
+		[HttpPut("update/{authId}")]
+		[ProducesResponseType(400)]
+		[ProducesResponseType(204)]
+		[ProducesResponseType(404)]
+		public IActionResult UpdateAuth([FromBody] AuthDto authUpdate, int authId)
+		{
+			if (authUpdate == null)
+				return BadRequest(ModelState);
+			if (!_authRepository.AuthExists(authId))
+				return NotFound();
+			if (authUpdate.Id != authId)
+				return BadRequest(ModelState);
+			if (!ModelState.IsValid)
+				return BadRequest(ModelState);
+
+			var authMap = _mapper.Map<Auth>(authUpdate);
+			authMap.UserId = _authRepository.GetUserByAuth(authId).Id;
+			if (!_authRepository.UpdateUserData(authMap))
+			{
+				ModelState.AddModelError("", "Something went wrong updating user data.");
+				return StatusCode(500, ModelState);
+			}
+			return NoContent();
 		}
 	}
 }

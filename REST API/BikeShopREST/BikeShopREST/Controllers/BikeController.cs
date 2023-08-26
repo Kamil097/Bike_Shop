@@ -59,5 +59,28 @@ namespace BikeShopREST.Controllers
 			}
 			return Ok(bikeMap.Id);
 		}
+		[HttpPut("update/{bikeId}")]
+		[ProducesResponseType(400)]
+		[ProducesResponseType(204)]
+		[ProducesResponseType(404)]
+		public IActionResult UpdateBike([FromBody] BikeDto bikeUpdate, int bikeId)
+		{
+			if (bikeUpdate == null)
+				return BadRequest(ModelState);
+			if (!_bikeRepository.BikeExists(bikeId))
+				return NotFound();
+			if (bikeUpdate.Id != bikeId)
+				return BadRequest(ModelState);
+			if (!ModelState.IsValid)
+				return BadRequest(ModelState);
+
+			var bikeMap = _mapper.Map<Bike>(bikeUpdate);
+			if (!_bikeRepository.UpdateBike(bikeMap))
+			{
+				ModelState.AddModelError("", "Something went wrong updating bike data.");
+				return StatusCode(500, ModelState);
+			}
+			return NoContent();
+		}
 	}
 }

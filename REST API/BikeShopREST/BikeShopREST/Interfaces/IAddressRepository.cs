@@ -9,6 +9,7 @@ namespace BikeShopREST.Interfaces
 		bool AddressExists(int id);
 		Address GetAddressByUser(int userId);
 		ICollection<User> GetUserByAddress(int addressId);
+		bool UpdateAddress(Address address);
 		bool CreateAddress(Address address);
 		bool Save();
 	}

@@ -37,10 +37,21 @@ namespace BikeShopREST.Repositories
 			return _context.Contacts.OrderBy(c => c.Id).ToList();
 		}
 
+		public User GetUserByContact(int contactId)
+		{
+			return _context.Contacts.Where(c => c.Id == contactId).Select(c => c.User).FirstOrDefault();
+		}
+
 		public bool Save()
 		{
 			var saved = _context.SaveChanges();
 			return saved > 0 ? true : false;
+		}
+
+		public bool UpdateContact(Contact Contact)
+		{
+			_context.Update(Contact);
+			return Save();
 		}
 	}
 }

@@ -63,7 +63,7 @@ namespace BikeShopREST.Controllers
 		[HttpPost("CreateUser")]
 		[ProducesResponseType(204)]
 		[ProducesResponseType(400)]
-		public IActionResult CreateUser([FromBody] UserDto userCreate, [FromQuery] int addressId, [FromQuery] int contactId)
+		public IActionResult CreateUser([FromBody] UserDto userCreate, [FromQuery] int addressId)
 		{
 			if (userCreate == null)
 				return BadRequest(ModelState);
@@ -72,9 +72,7 @@ namespace BikeShopREST.Controllers
 				return BadRequest(ModelState);
 
 			var userMap = _mapper.Map<User>(userCreate);
-			var contact = _contactRepository.GetContact(contactId);
 			var address = _addressRepository.GetAddress(addressId);
-			userMap.Contact = contact;
 			userMap.Address = address;
 
 			if (!_userRepository.CreateUser(userMap))
@@ -112,6 +110,29 @@ namespace BikeShopREST.Controllers
 			}
 			return Ok("Successfully added.");
 
+		}
+		[HttpPut("update/{userId}")]
+		[ProducesResponseType(400)]
+		[ProducesResponseType(204)]
+		[ProducesResponseType(404)]
+		public IActionResult UpdateUser([FromBody] UserDto userUpdate, int userId)
+		{
+			if (userUpdate == null)
+				return BadRequest(ModelState);
+			if (!_contactRepository.ContactExists(userId))
+				return NotFound();
+			if (userUpdate.Id != userId)
+				return BadRequest(ModelState);
+			if (!ModelState.IsValid)
+				return BadRequest(ModelState);
+
+			var userMap = _mapper.Map<User>(userUpdate);
+			if (!_userRepository.UpdateUser(userMap))
+			{
+				ModelState.AddModelError("", "Something went wrong updating user data.");
+				return StatusCode(500, ModelState);
+			}
+			return NoContent();
 		}
 
 	}

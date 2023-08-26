@@ -34,6 +34,12 @@ namespace BikeShopREST.Repositories
 		{
 			var saved = _context.SaveChanges();
 			return saved > 0 ? true : false;
-		}		
+		}
+
+		public bool UpdateBike(Bike Bike)
+		{
+			_context.Update(Bike);
+			return Save();
+		}
 	}
 }

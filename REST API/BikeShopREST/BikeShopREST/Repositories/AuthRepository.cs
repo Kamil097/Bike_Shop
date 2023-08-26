@@ -18,10 +18,30 @@ namespace BikeShopREST.Repositories
 			_context.Add(Auth);
 			return Save();
 		}
+		public bool UpdateUserData(Auth Auth)
+		{
+			_context.Update(Auth);
+			return Save();
+		}
 		public bool Save()
 		{
 			var saved =_context.SaveChanges();
 			return saved > 0 ? true : false;
+		}
+
+		public bool AuthExists(int authId)
+		{
+			return _context.Auths.Any(a => a.Id == authId);
+		}
+
+		public Auth GetAuthByUser(int userId)
+		{
+			return _context.Auths.Where(u => u.Id == userId).FirstOrDefault();
+		}
+
+		public User GetUserByAuth(int authId)
+		{
+			return _context.Auths.Where(a => a.Id==authId).Select(a=>a.User).FirstOrDefault();
 		}
 	}
 }

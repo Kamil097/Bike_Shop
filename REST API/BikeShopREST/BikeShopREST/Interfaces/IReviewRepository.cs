@@ -9,6 +9,7 @@ namespace BikeShopREST.Interfaces
 		ICollection<Review> GetReviewsByUser(int userId);
 		Review GetReview(int id);
 		bool CreateReview(Review review);
+		bool UpdateReview(Review Review);
 		bool ReviewExists(int id);
 		bool Save();
 

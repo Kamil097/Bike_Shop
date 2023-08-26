@@ -9,6 +9,7 @@ namespace BikeShopREST.Interfaces
 		ICollection<Bike> GetBikesByUser(int userId);
 		bool AssignBikeToUser(int userId, int bikeId);
 		bool CreateUser(User user);
+		bool UpdateUser(User User);
 		bool UserExists(int id);
 		bool Save();
 	}
