@@ -13,14 +13,14 @@ namespace BikeShopREST.Repositories
         {
 			_context = context;
         }
-        public bool Register(Auth Auth)
+        public bool Register(Auth auth)
 		{
-			_context.Add(Auth);
+			_context.Add(auth);
 			return Save();
 		}
-		public bool UpdateUserData(Auth Auth)
+		public bool UpdateUserData(Auth auth)
 		{
-			_context.Update(Auth);
+			_context.Update(auth);
 			return Save();
 		}
 		public bool Save()

@@ -6,8 +6,8 @@ namespace BikeShopREST.Interfaces
 	{
 		ICollection<Bike> GetBikes();
 		Bike GetBike(int id);
-		bool CreateBike(Bike Bike);
-		bool UpdateBike(Bike Bike);	
+		bool CreateBike(Bike bike);
+		bool UpdateBike(Bike bike);	
 		bool DeleteBike(Bike bike);
 		bool BikeExists(int id);
 		bool Save();

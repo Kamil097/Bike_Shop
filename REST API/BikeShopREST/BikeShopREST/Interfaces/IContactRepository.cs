@@ -8,7 +8,7 @@ namespace BikeShopREST.Interfaces
 		Contact GetContact(int id);
 		Contact GetContactByUser(int userId);
 		User GetUserByContact(int contactId);
-		bool UpdateContact(Contact Contact);
+		bool UpdateContact(Contact contact);
 		bool CreateContact(Contact contact);
 		bool ContactExists(int id);
 		bool Save();

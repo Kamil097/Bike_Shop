@@ -25,9 +25,9 @@ namespace BikeShopREST.Repositories
 		{
 			return _context.Bikes.Where(b => b.Id == id).FirstOrDefault();
 		}
-		public bool CreateBike(Bike Bike)
+		public bool CreateBike(Bike bike)
 		{
-			_context.Add(Bike);
+			_context.Add(bike);
 			return Save();
 		}
 		public bool Save()
@@ -36,9 +36,9 @@ namespace BikeShopREST.Repositories
 			return saved > 0 ? true : false;
 		}
 
-		public bool UpdateBike(Bike Bike)
+		public bool UpdateBike(Bike bike)
 		{
-			_context.Update(Bike);
+			_context.Update(bike);
 			return Save();
 		}
 

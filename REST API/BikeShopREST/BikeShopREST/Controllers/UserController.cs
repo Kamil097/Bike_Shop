@@ -46,19 +46,6 @@ namespace BikeShopREST.Controllers
 				return BadRequest(ModelState);
 			return Ok(user);
 		}
-		[HttpGet("getBikesByUser/{userId}")]
-		[ProducesResponseType(200, Type = typeof(IEnumerable<Bike>))]
-		[ProducesResponseType(400)]
-		public IActionResult GetBikesByUser(int userId)
-		{
-			if (!_userRepository.UserExists(userId))
-				return NotFound();
-			var bikes = _mapper.Map<List<BikeDto>>(_userRepository.GetBikesByUser(userId));
-
-			if (!ModelState.IsValid)
-				return BadRequest(ModelState);
-			return Ok(bikes);
-		}
 
 		[HttpPost("CreateUser")]
 		[ProducesResponseType(204)]
@@ -85,32 +72,6 @@ namespace BikeShopREST.Controllers
 
 
 
-		[HttpPost("AssignBikeToUser")]
-		[ProducesResponseType(204)]
-		[ProducesResponseType(400)]
-		public IActionResult AssignBikeToUser([FromQuery] int bikeId, [FromQuery] int userId)
-		{
-			var bike = _userRepository.GetBikesByUser(userId)
-				.Where(b => b.Id == bikeId)
-				.FirstOrDefault();
-
-			if (bike != null)
-			{
-				ModelState.AddModelError("", $"User already has this bike.");
-				return StatusCode(422, ModelState);
-			}
-			if (!ModelState.IsValid)
-				return BadRequest(ModelState);
-
-
-			if (!_userRepository.AssignBikeToUser(userId, bikeId))
-			{
-				ModelState.AddModelError("", "Something went wrong while saving.");
-				return StatusCode(500, ModelState);
-			}
-			return Ok("Successfully added.");
-
-		}
 		[HttpPut("update/{userId}")]
 		[ProducesResponseType(400)]
 		[ProducesResponseType(204)]
@@ -148,24 +109,6 @@ namespace BikeShopREST.Controllers
             if (!_userRepository.DeleteUser(userDelete))
             {
                 ModelState.AddModelError("", "Something went wrong deleting user.");
-            }
-            return NoContent();
-        }
-        [HttpDelete("delete/{bikeId}/{userId}")]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(204)]
-        [ProducesResponseType(404)]
-        public IActionResult DeleteBikeFromUser(int bikeId, int userId)
-        {
-			if (!_userRepository.BikeUserExists(bikeId, userId))
-                return NotFound();
-            var bikeUserDelete = _userRepository.GetBikeUser(bikeId, userId);
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            if (!_userRepository.DeleteBikeFromUser(bikeUserDelete))
-            {
-                ModelState.AddModelError("", "Something went wrong deleting bike from user.");
             }
             return NoContent();
         }

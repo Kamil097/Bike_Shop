@@ -45,9 +45,9 @@ namespace BikeShopREST.Repositories
 			return saved > 0? true: false;
 		}
 
-		public bool UpdateCategory(Category Category)
+		public bool UpdateCategory(Category category)
 		{
-			_context.Update(Category);
+			_context.Update(category);
 			return Save();
 		}
 	}

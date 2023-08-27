@@ -48,9 +48,9 @@ namespace BikeShopREST.Repositories
 			return saved > 0 ? true : false;
 		}
 
-		public bool UpdateContact(Contact Contact)
+		public bool UpdateContact(Contact contact)
 		{
-			_context.Update(Contact);
+			_context.Update(contact);
 			return Save();
 		}
 	}

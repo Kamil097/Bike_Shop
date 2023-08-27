@@ -48,9 +48,9 @@ namespace BikeShopREST.Repositories
 			return _context.BikeCategories.Where(b => b.BikeId == bikeId).Select(c => c.Category).FirstOrDefault();
 		}
 
-        public bool DeleteBikeCategory(BikeCategory bikecategory)
+        public bool DeleteBikeCategory(BikeCategory bikeCategory)
         {
-			_context.Remove(bikecategory);
+			_context.Remove(bikeCategory);
 			return Save();
 
         }
