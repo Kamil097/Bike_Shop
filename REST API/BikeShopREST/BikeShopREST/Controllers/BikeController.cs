@@ -82,5 +82,22 @@ namespace BikeShopREST.Controllers
 			}
 			return NoContent();
 		}
-	}
+        [HttpDelete("delete/{bikeId}")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        public IActionResult DeleteBike(int bikeId)
+        {
+            if (!_bikeRepository.BikeExists(bikeId))
+                return NotFound();
+            var addresDelete = _bikeRepository.GetBike(bikeId);
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            if (!_bikeRepository.DeleteBike(addresDelete))
+            {
+                ModelState.AddModelError("", "Something went wrong deleting bike.");
+            }
+            return NoContent();
+        }
+    }
 }

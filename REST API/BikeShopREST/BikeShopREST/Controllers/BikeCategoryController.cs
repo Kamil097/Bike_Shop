@@ -2,6 +2,7 @@
 using BikeShopREST.Dto;
 using BikeShopREST.Interfaces;
 using BikeShopREST.Models;
+using BikeShopREST.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System.Reflection.Metadata.Ecma335;
 
@@ -30,6 +31,8 @@ namespace BikeShopREST.Controllers
             if (!_categoryRepository.CategoryExists(categoryId))
                 return NotFound();
             var bikes = _mapper.Map<List<BikeDto>>(_bikeCategoryRepository.GetBikesByCategory(categoryId));
+            if(bikes.Count==0)
+                return NotFound();  
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);  
             return Ok(bikes);
@@ -42,6 +45,10 @@ namespace BikeShopREST.Controllers
 			if (!_bikeRepository.BikeExists(bikeId))
 				return NotFound();
 			var category = _mapper.Map<CategoryDto>(_bikeCategoryRepository.GetCategoryByBike(bikeId));
+
+            if(category==null)
+                return NotFound();
+
 			if (!ModelState.IsValid)
 				return BadRequest(ModelState);
 			return Ok(category);
@@ -72,5 +79,23 @@ namespace BikeShopREST.Controllers
 			return Ok("Successfully added.");
 
 		}
-	}
+        [HttpDelete("delete/{bikeId}/{categoryId}")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        public IActionResult DeleteBikeCategory(int bikeId,int categoryId)
+        {
+            if (!_bikeCategoryRepository.BikeCategoryExists(bikeId,categoryId))
+                return NotFound();
+            var bikeCategoryDelete = _bikeCategoryRepository.GetBikeCategory(bikeId,categoryId);
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            if (!_bikeCategoryRepository.DeleteBikeCategory(bikeCategoryDelete))
+            {
+                ModelState.AddModelError("", "Something went wrong deleting bikeCategory.");
+            }
+            return NoContent();
+        }
+    }
 }

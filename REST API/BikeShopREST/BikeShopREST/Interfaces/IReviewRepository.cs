@@ -10,6 +10,7 @@ namespace BikeShopREST.Interfaces
 		Review GetReview(int id);
 		bool CreateReview(Review review);
 		bool UpdateReview(Review Review);
+		bool DeleteReview(Review review);
 		bool ReviewExists(int id);
 		bool Save();
 

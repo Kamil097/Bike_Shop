@@ -134,6 +134,40 @@ namespace BikeShopREST.Controllers
 			}
 			return NoContent();
 		}
+        [HttpDelete("delete/{userId}")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        public IActionResult DeleteUser(int userId)
+        {
+            if (!_userRepository.UserExists(userId))
+                return NotFound();
+            var userDelete= _userRepository.GetUser(userId);
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            if (!_userRepository.DeleteUser(userDelete))
+            {
+                ModelState.AddModelError("", "Something went wrong deleting user.");
+            }
+            return NoContent();
+        }
+        [HttpDelete("delete/{bikeId}/{userId}")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        public IActionResult DeleteBikeFromUser(int bikeId, int userId)
+        {
+			if (!_userRepository.BikeUserExists(bikeId, userId))
+                return NotFound();
+            var bikeUserDelete = _userRepository.GetBikeUser(bikeId, userId);
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-	}
+            if (!_userRepository.DeleteBikeFromUser(bikeUserDelete))
+            {
+                ModelState.AddModelError("", "Something went wrong deleting bike from user.");
+            }
+            return NoContent();
+        }
+    }
 }

@@ -57,5 +57,38 @@ namespace BikeShopREST.Repositories
 			_context.Update(User);
 			return Save();	
 		}
-	}
+
+        public bool DeleteUser(User user)
+        {
+			
+			var userContact = _context.Contacts.Where(c=>c.UserId==user.Id).FirstOrDefault();
+			var userAuth = _context.Auths.Where(a=>a.UserId==user.Id).FirstOrDefault();
+			var userReviews = _context.Reviews.Where(r => r.User.Id == user.Id).ToList();
+			_context.Remove(userAuth);
+			_context.Remove(userContact);
+
+			foreach(var review in userReviews)
+				_context.Remove(review);
+
+			_context.Remove(user);
+			
+            return Save();
+        }
+
+        public bool DeleteBikeFromUser(BikeUser bikeuser)
+        {
+			_context.Remove(bikeuser);
+			return Save();
+        }
+
+        public bool BikeUserExists(int bikeId, int userId)
+        {
+            return _context.BikeUsers.Any(bc=>bc.BikeId==bikeId&& bc.UserId==userId);
+        }
+
+        public BikeUser GetBikeUser(int bikeId, int userId)
+        {
+			return _context.BikeUsers.Where(bc => bc.BikeId == bikeId && bc.UserId == userId).FirstOrDefault();
+        }
+    }
 }

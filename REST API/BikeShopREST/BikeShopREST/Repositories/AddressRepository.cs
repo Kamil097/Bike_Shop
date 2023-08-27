@@ -51,5 +51,11 @@ namespace BikeShopREST.Repositories
 			var saved = _context.SaveChanges();
 			return saved > 0 ? true : false;
 		}
-	}
+
+        public bool DeleteAddress(Address address)
+        {
+			_context.Remove(address);
+			return Save();
+        }
+    }
 }

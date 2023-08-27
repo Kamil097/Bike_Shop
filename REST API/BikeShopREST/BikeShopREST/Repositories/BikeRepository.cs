@@ -41,5 +41,11 @@ namespace BikeShopREST.Repositories
 			_context.Update(Bike);
 			return Save();
 		}
-	}
+
+        public bool DeleteBike(Bike bike)
+        {
+			_context.Remove(bike);
+			return Save();
+        }
+    }
 }

@@ -8,6 +8,7 @@ namespace BikeShopREST.Interfaces
 		Category GetCategory(int id);
 		bool CreateCategory(Category category);
 		bool UpdateCategory(Category Category);
+		bool DeleteCategory(Category category);
 		bool CategoryExists(int id);
 		bool Save();
 	}

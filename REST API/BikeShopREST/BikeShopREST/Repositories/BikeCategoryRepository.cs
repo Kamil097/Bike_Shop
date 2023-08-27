@@ -28,17 +28,34 @@ namespace BikeShopREST.Repositories
 			return Save();
 		}
 
-		public ICollection<Bike> GetBikesByCategory(int categoryId)
+        public bool BikeCategoryExists(int bikeId, int categoryId)
+        {
+			return _context.BikeCategories.Any(bc => bc.CategoryId == categoryId && bc.BikeId == bikeId);
+        }
+
+        public BikeCategory GetBikeCategory(int bikeId, int categoryId)
+        {
+			return _context.BikeCategories.Where(bc => bc.BikeId == bikeId && bc.CategoryId == categoryId).FirstOrDefault();
+        }
+
+        public ICollection<Bike> GetBikesByCategory(int categoryId)
 		{
 			return _context.BikeCategories.Where(c => c.CategoryId == categoryId).Select(b => b.Bike).ToList();
 		}
-
+		
 		public Category GetCategoryByBike(int bikeId)
 		{
 			return _context.BikeCategories.Where(b => b.BikeId == bikeId).Select(c => c.Category).FirstOrDefault();
 		}
 
-		public bool Save()
+        public bool DeleteBikeCategory(BikeCategory bikecategory)
+        {
+			_context.Remove(bikecategory);
+			return Save();
+
+        }
+
+        public bool Save()
 		{
 			var save = _context.SaveChanges();
 			return save > 0 ? true : false;

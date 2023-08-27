@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\kamil\\Documents\\GitHub\\Bike_Shop\\REST API\\BikeShopREST\\BikeShopREST\\BikeShopREST.csproj": {}
+    "C:\\Users\\Kamil\\Documents\\GitHub\\Bike_Shop\\REST API\\BikeShopREST\\BikeShopREST\\BikeShopREST.csproj": {}
   },
   "projects": {
-    "C:\\Users\\kamil\\Documents\\GitHub\\Bike_Shop\\REST API\\BikeShopREST\\BikeShopREST\\BikeShopREST.csproj": {
+    "C:\\Users\\Kamil\\Documents\\GitHub\\Bike_Shop\\REST API\\BikeShopREST\\BikeShopREST\\BikeShopREST.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\kamil\\Documents\\GitHub\\Bike_Shop\\REST API\\BikeShopREST\\BikeShopREST\\BikeShopREST.csproj",
+        "projectUniqueName": "C:\\Users\\Kamil\\Documents\\GitHub\\Bike_Shop\\REST API\\BikeShopREST\\BikeShopREST\\BikeShopREST.csproj",
         "projectName": "BikeShopREST",
-        "projectPath": "C:\\Users\\kamil\\Documents\\GitHub\\Bike_Shop\\REST API\\BikeShopREST\\BikeShopREST\\BikeShopREST.csproj",
-        "packagesPath": "C:\\Users\\kamil\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\kamil\\Documents\\GitHub\\Bike_Shop\\REST API\\BikeShopREST\\BikeShopREST\\obj\\",
+        "projectPath": "C:\\Users\\Kamil\\Documents\\GitHub\\Bike_Shop\\REST API\\BikeShopREST\\BikeShopREST\\BikeShopREST.csproj",
+        "packagesPath": "C:\\Users\\Kamil\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Kamil\\Documents\\GitHub\\Bike_Shop\\REST API\\BikeShopREST\\BikeShopREST\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\kamil\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Kamil\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -80,24 +80,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[6.0.16, 6.0.16]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Host.win-x64",
-              "version": "[6.0.16, 6.0.16]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[6.0.16, 6.0.16]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[6.0.16, 6.0.16]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -106,7 +88,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }
