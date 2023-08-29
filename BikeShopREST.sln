@@ -5,7 +5,7 @@ VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BikeShopREST", "BikeShopREST\BikeShopREST.csproj", "{02AA0FC3-51A8-4DDB-B5EC-CE83748DD594}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BikeShopWebApp", "BikeShopWebApp\BikeShopWebApp.csproj", "{BA785F03-71CC-4FF6-B320-6947E43CCD13}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BikeShopWebPage", "BikeShopWebPage\BikeShopWebPage.csproj", "{70AE6827-52FF-4993-9F74-9A2E8CE1B0AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{02AA0FC3-51A8-4DDB-B5EC-CE83748DD594}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02AA0FC3-51A8-4DDB-B5EC-CE83748DD594}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02AA0FC3-51A8-4DDB-B5EC-CE83748DD594}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BA785F03-71CC-4FF6-B320-6947E43CCD13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BA785F03-71CC-4FF6-B320-6947E43CCD13}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BA785F03-71CC-4FF6-B320-6947E43CCD13}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BA785F03-71CC-4FF6-B320-6947E43CCD13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70AE6827-52FF-4993-9F74-9A2E8CE1B0AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70AE6827-52FF-4993-9F74-9A2E8CE1B0AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70AE6827-52FF-4993-9F74-9A2E8CE1B0AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70AE6827-52FF-4993-9F74-9A2E8CE1B0AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

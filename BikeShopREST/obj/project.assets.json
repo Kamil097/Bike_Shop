@@ -3789,11 +3789,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Kamil\\Documents\\GitHub\\Bike_Shop\\REST API\\BikeShopREST\\BikeShopREST\\BikeShopREST.csproj",
+      "projectUniqueName": "C:\\Users\\Kamil\\Documents\\GitHub\\Bike_Shop\\BikeShopREST\\BikeShopREST.csproj",
       "projectName": "BikeShopREST",
-      "projectPath": "C:\\Users\\Kamil\\Documents\\GitHub\\Bike_Shop\\REST API\\BikeShopREST\\BikeShopREST\\BikeShopREST.csproj",
+      "projectPath": "C:\\Users\\Kamil\\Documents\\GitHub\\Bike_Shop\\BikeShopREST\\BikeShopREST.csproj",
       "packagesPath": "C:\\Users\\Kamil\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Kamil\\Documents\\GitHub\\Bike_Shop\\REST API\\BikeShopREST\\BikeShopREST\\obj\\",
+      "outputPath": "C:\\Users\\Kamil\\Documents\\GitHub\\Bike_Shop\\BikeShopREST\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Kamil\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -3870,7 +3870,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
       }
     }
   }
