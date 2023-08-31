@@ -1,7 +1,3 @@
-html {
-    font-size: 14px;
-}
-
 @media (min-width: 768px) {
     html {
         font-size: 16px;
@@ -15,42 +11,65 @@ html {
 
 body {
     margin-bottom: 60px;
+    font-family: 'Cantarell', sans-serif;
 }
 
-.mainSubTitle {
-    font-weight: 400;
-    letter-spacing: 2px;
-}
-
-.mainImage {
-    border-radius: 25px;
-    margin: 40px;
-    filter: drop-shadow(0px 0px 10px rgba(0,0,0,0.3));
-}
-
-.mainText {
-    padding: 75px 20px;
-}
-
-.smallText {
-    text-align: right;
-    color: grey;
-}
-
-.makeYourOwnDiv {
-    background: grey;
+.pictureFooter {
+    font-size: 15px;
+    font-weight:500;
+    white-space: normal;
+    min-height: 10vh;
+    background: #353737;
     margin: 0;
+    color: #3CDEB8;
+}
+    .pictureFooter:hover {
+        background: #3CDEB8;
+        color: #353737;
+    }
+
+.myText {
+    font-weight:500;
+    font-size:25px;
 }
 
-.makeYourOwnText {
-    margin: 100px 0 20px 0;
-    color: white;
-}
-
-.pizza-img :hover {
+.bike-img :hover {
     transform: scale(1.05);
     transition-duration: 0.5s;
 }
-/*.navbar {
-    margin-bottom: 0 !important;
-}*/
+.main_button {
+    background: #353737;
+    color: #3CDEB8; /* Your existing CSS rules */
+}
+.myContainer{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
+
+.main_button {
+    background: #353737;
+    color: #3CDEB8;
+    transition-duration: 0.5s;
+}
+    .main_button:hover {
+        background-color: #3CDEB8;
+        color: #353737;
+        transition-duration: 0.5s;
+    }
+
+.darkProps {
+    background: black;
+    min-height: 300px;
+    color: #3CDEB8;
+    white-space: normal;
+    font-family: 'Bangers', cursive;
+}
+
+.reviews{
+    background:black;
+}

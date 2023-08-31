@@ -4,32 +4,26 @@
     ViewData["Title"] = "Index";
 }
 <img src="~/Images/widebikepic.jpg" class="w-100" />
+<div class="d-flex justify-content-center align-items-center text-center pictureFooter mb-5">
+    <span>ENJOY OUR SELECTION OF BIKES</span>
+</div>
 
 <div class="text-center">
-    <div class="mainText">
-        <h1 class="display-4 text-capitalize text-black">
-            Our great selection of Bikes!
-        </h1>
-    </div>
     <div class="container">
         <div class="row">
-            <div class="col-12 mb-5 mt-5">
-                <div class="w-100 row makeYourOwnDiv">
-                    <div class="col-4">
-                        
-                    </div>
-                </div>
-            </div>
             @foreach (var bike in Model)
             {
-                <div class="col-4 mb-5">
-                    <a class="pizza-img" asp-area="" asp-page="/Bike/Index">
+                <div class="col-md-6 col-lg-6 mb-4">
+                    <a class="bike-img" asp-controller="Bike" asp-action="BikeDetails" asp-route-id="@bike.Id">
                         <img src="~/Images/@(bike.Name).jpg" class="w-100" asp-append-version="true" />
-                        <p>@bike.Name</p>
                     </a>
+                    <p class="mt-3 mb-3 fw-bold">@bike.Name</p>
+                    <p class="mt-3 mb-3 fw-light">@(bike.Price) zł</p>
+                    <a class="btn main_button mt-3" asp-controller="Bike" asp-action="BikeDetails" asp-route-id="@bike.Id">Explore</a>
                     <br />
                 </div>
             }
+
         </div>
     </div>
 </div>

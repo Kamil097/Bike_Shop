@@ -8,6 +8,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IBikeRepository,BikeRepository>();
 builder.Services.AddScoped<IUserRepository,UserRepository>();
 
+builder.Services.AddRazorPages();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

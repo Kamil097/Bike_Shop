@@ -26,5 +26,29 @@ namespace BikeShopWebPage.Repositories
             }
             return bikeList;
         }
+
+        public Bike GetBikeById(int bikeId)
+        {
+            Bike bike = new Bike();
+            HttpResponseMessage response = _client.GetAsync(_client.BaseAddress + $"/Bike/getBike/{bikeId}").Result;
+            if (response.IsSuccessStatusCode)
+            {
+                string data = response.Content.ReadAsStringAsync().Result;
+                bike = JsonConvert.DeserializeObject<Bike>(data);
+            }
+            return bike;
+        }
+
+        public List<Review> GetReviewsByBike(int bikeId)
+        {
+            List<Review> bikeReviews = new List<Review>();
+            HttpResponseMessage response = _client.GetAsync(_client.BaseAddress + $"/Review/getReviewsByBike/{bikeId}").Result;
+            if (response.IsSuccessStatusCode)
+            {
+                string data = response.Content.ReadAsStringAsync().Result;
+                bikeReviews = JsonConvert.DeserializeObject<List<Review>>(data);
+            }
+            return bikeReviews;
+        }
     }
 }

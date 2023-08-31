@@ -1,0 +1,59 @@
+﻿@model BikeShopWebPage.Models.BikeReview
+
+<div class="text-center">
+    <div class="myContainer">
+        <div>
+           <h2 class="mb-5">@Model.bike.Name</h2>
+            <img src="~/Images/@(Model.bike.Name).jpg" class="w-100" asp-append-version="true" />
+        </div>
+
+        <div class="darkProps w-100" style="margin-bottom:0px;">
+            <div class="d-flex justify-content-center align-items-center pictureFooter mb-5" style="color:white; min-height:10vh; background:#262626; text-align:left; font-size:12px; font-weight:500;font-family: 'Bangers';">
+                @Model.bike.Name
+            </div>
+            <div style="font-size:100px; align-content:center; font-weight:800; color:#404040; margin:50px;">
+                    <p>BIKE DETAILS</p>
+             </div>
+            <hr class="mb-5" style="border: none; border-top: 2px solid #999; margin: 20px 0;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div style="margin-left: 150px;">
+                    <h3 class="" style="font-size:25px; color:white;">Price</h3>
+                    <p>@Model.bike.Price zł</p>
+                </div>
+                <div>
+                    <h3 class="" style="font-size:25px; color:white;">Collection</h3>
+                    <p>@Model.bike.Year</p>
+                </div>
+                <div style="margin-right: 150px;">
+                    <h3 class="" style="font-size:25px; color:white;">Rating</h3>
+                    <p cladd="mb-5">@Model.bike.Rating / 10</p>
+                </div>
+            </div>
+            <div>
+                <a class="btn main_button mt-3 mb-5" asp-controller="Bike" asp-action="BikeDetails" asp-route-id="@Model.bike.Id">ADD TO CARD</a>
+            </div>
+            <div class="reviews">
+                @if (Model.reviews.Count > 0)
+                {
+                    <hr class="mb-5" style="border: none; border-top: 2px solid #999; margin-right: 20px; margin-left:20px;">
+                    <div style="font-size:100px; align-content:center; font-weight:800; color:#404040; margin:50px;">
+                        <p>REVIEWS</p>
+                    </div>
+                    <hr class="mb-5" style="border: none; border-top: 2px solid #999; margin-right: 20px; margin-left:20px;">
+                    @foreach (var review in Model.reviews)
+                    {
+                        <div class="review-item mb-4">
+                            <p class="mb-1" style="font-weight: 600; font-size: 18px;">"@review.Title"</p>
+                            <p class="mb-1" style="font-size: 16px;">"@review.Text"</p>
+                            <p class="mb-0" style="font-size: 16px; color: #666;">Rating: @review.Rating / 10</p>
+                            <hr class="mb-5" style="border: none; border-top: 2px solid #999; margin-right: 20px; margin-left:20px;">
+                        </div>
+                    }
+                }
+            </div>
+            <div class="d-flex justify-content-center align-items-center text-center pictureFooter mb-5">
+                <span>CHECK OTHER BIKES</span>
+            </div>
+        </div>
+    </div>
+</div>
