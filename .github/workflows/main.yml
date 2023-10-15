@@ -21,7 +21,7 @@ jobs:
          uses: NuGet/setup-nuget@v1.2.0
 
        - name: Restore NuGet packages
-         run: nuget restore Tradiss.Huhtamaki.sln
+         run: nuget restore BikeShopREST.sln
 
        - name: Build the Solution in Release mode
          run: msbuild /p:Configuration=Release BikeShopREST.sln
@@ -30,7 +30,7 @@ jobs:
          uses: actions/upload-artifact@v2
          with:
            name: release-dlls
-           path: src/Tradiss.Huhtamaki/Release
+           path: src/Bike_Shop/Release
 
   deploy:
     needs: build
