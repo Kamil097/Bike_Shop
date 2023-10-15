@@ -24,7 +24,7 @@ jobs:
          run: nuget restore Tradiss.Huhtamaki.sln
 
        - name: Build the Solution in Release mode
-         run: msbuild /p:Configuration=Release Tradiss.Huhtamaki.sln
+         run: msbuild /p:Configuration=Release BikeShopREST.sln
          
        - name: Upload DLL to GitHub
          uses: actions/upload-artifact@v2
