@@ -30,7 +30,7 @@ jobs:
          uses: actions/upload-artifact@v2
          with:
            name: release-dlls
-           path: src/Bike_Shop/Release
+           path: Release
 
   deploy:
     needs: build
