@@ -1,0 +1,55 @@
+name: updateDlls
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+    runs-on: [windows-latest]  
+                            
+    steps:
+       - uses: actions/checkout@v2
+
+       - name: setup-msbuild
+         uses: microsoft/setup-msbuild@v1
+
+       - name: Setup NuGet.exe for use with actions
+         uses: NuGet/setup-nuget@v1.2.0
+
+       - name: Restore NuGet packages
+         run: nuget restore Tradiss.Huhtamaki.sln
+
+       - name: Build the Solution in Release mode
+         run: msbuild /p:Configuration=Release Tradiss.Huhtamaki.sln
+         
+       - name: Upload DLL to GitHub
+         uses: actions/upload-artifact@v2
+         with:
+           name: release-dlls
+           path: src/Tradiss.Huhtamaki/Release
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download DLL from previous job
+        uses: actions/download-artifact@v2
+        with:
+          name: release-dlls
+
+      - name: Upload DLL to SharePoint
+        run: |
+          $userName = "xxhaltx@gmail.com"
+          $password = "X1x2h3a4l5!@#"
+          $siteUrl = "https://drive.google.com"
+          $libraryName = "GithubDll"
+
+          Connect-PnPOnline -Url $siteUrl -Credentials (New-Object PSCredential $userName, (ConvertTo-SecureString $password -AsPlainText -Force))
+          Add-PnPTeamsApp -Path "path/to/your/local/folder" -List $libraryName
+
+         
+       
