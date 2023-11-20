@@ -44,8 +44,8 @@ jobs:
       - name: Upload DLL to SharePoint
         shell: bash
         run: |
-          userName="xxhalx@gmail.com"
-          password="X1x2h3a4l5!@#"
+          userName="sweetSecret"
+          password="sweetSecret"
           siteUrl="https://drive.google.com"
           libraryName="GithubDll"
           
